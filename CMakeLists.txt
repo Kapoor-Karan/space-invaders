@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(SpaceInvaders)
 
-add_executable(SpaceInvaders src/main.c src/enemy.c)
+add_executable(SpaceInvaders src/main.c src/enemy.c src/player.c)
 
 include_directories(include)
 
