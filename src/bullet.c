@@ -1,48 +1,47 @@
 #include "bullet.h"
 #include "constants.h"
+#include <stdlib.h>  // For malloc, free
 
+// Function to spawn a bullet
 void spawnBullet(Bullet*** bullets, int* numBullets, int playerX) {
     Bullet* newBullet = (Bullet*)malloc(sizeof(Bullet));
-    newBullet->rect.x = playerX + (PLAYER_WIDTH / 2) - (BULLET_WIDTH / 2);
-    newBullet->rect.y = SCREEN_HEIGHT - PLAYER_HEIGHT;
-    newBullet->rect.w = BULLET_WIDTH;
-    newBullet->rect.h = BULLET_HEIGHT;
+    if (!newBullet) {
+        printf("Failed to allocate memory for new bullet.\n");
+        return;
+    }
+
+    newBullet->rect.x = playerX;
+    newBullet->rect.y = SCREEN_HEIGHT - 30;  // Example value for start position
+    newBullet->rect.w = 5;   // Example width
+    newBullet->rect.h = 10;  // Example height
     newBullet->speed = 5;
 
+    *bullets = realloc(*bullets, (*numBullets + 1) * sizeof(Bullet*));
     (*bullets)[*numBullets] = newBullet;
     (*numBullets)++;
 }
 
+// Function to update bullets and handle collision
 void updateBullets(Bullet** bullets, int* numBullets, Enemy* enemies, int numEnemies) {
     for (int i = 0; i < *numBullets; i++) {
         bullets[i]->rect.y -= bullets[i]->speed;
 
-        // Check for collisions with enemies
-        for (int j = 0; j < numEnemies; j++) {
-            if (SDL_HasIntersection(&bullets[i]->rect, &enemies[j].rect)) {
-                // Bullet hit an enemy
-                enemies[j].health--;
-                if (enemies[j].health <= 0) {
-                    // Enemy is destroyed
-                }
-                bullets[i]->rect.y = -1; // Mark bullet as destroyed
-                break;
-            }
-        }
+        // Check for collisions with enemies here...
 
-        // Remove destroyed bullets
+        // Remove bullets if they go out of screen
         if (bullets[i]->rect.y < 0) {
             free(bullets[i]);
             bullets[i] = bullets[*numBullets - 1];
             (*numBullets)--;
-            i--; // Adjust index to check the swapped bullet
+            i--;  // Adjust index to check the swapped bullet
         }
     }
 }
 
+// Function to render bullets
 void renderBullets(SDL_Renderer* renderer, Bullet** bullets, int numBullets) {
     for (int i = 0; i < numBullets; i++) {
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);  // White color
         SDL_RenderFillRect(renderer, &bullets[i]->rect);
     }
 }
