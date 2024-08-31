@@ -4,10 +4,16 @@
 #include <stdbool.h>
 #include "player.h"
 #include "enemy.h"
+#include "bullet.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define MAX_ENEMIES 10
+#define MAX_BULLETS 10
+#define ENEMY_WIDTH 30
+#define ENEMY_HEIGHT 30
+#define PLAYER_WIDTH 50
+#define PLAYER_HEIGHT 50
 
 int main(int argc, char* argv[]) {
     // Initialize SDL
@@ -74,11 +80,31 @@ int main(int argc, char* argv[]) {
     Player player;
     initializePlayer(&player);
 
+    // Create bullets
+    Bullet** bullets = NULL; // Pointer to array of pointers
+    int numBullets = 0;
+    int bulletCapacity = 0; // Track the allocated size
+
     // Game loop
     bool quit = false;
     while (!quit) {
-        // Handle player input
-        handlePlayerInput(&player);
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                quit = true;
+            } else if (event.type == SDL_KEYDOWN) {
+                handlePlayerInput(&player);
+
+                if (event.key.keysym.sym == SDLK_SPACE) {
+                    // Check capacity before spawning new bullet
+                    if (numBullets >= bulletCapacity) {
+                        bulletCapacity += 10; // Increment capacity
+                        bullets = realloc(bullets, bulletCapacity * sizeof(Bullet*));
+                    }
+                    spawnBullet(&bullets, &numBullets, player.rect.x);
+                }
+            }
+        }
 
         // Update enemies
         for (int i = 0; i < MAX_ENEMIES; i++) {
@@ -87,6 +113,9 @@ int main(int argc, char* argv[]) {
                 // Enemy has reached the bottom, handle it
             }
         }
+
+        // Update bullets and handle collisions
+        updateBullets(bullets, &numBullets, enemies, MAX_ENEMIES);
 
         // Clear the screen
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -100,11 +129,18 @@ int main(int argc, char* argv[]) {
         // Render player
         SDL_RenderCopy(renderer, playerTexture, NULL, &player.rect);
 
+        // Render bullets
+        renderBullets(renderer, bullets, numBullets);
+
         // Update the screen
         SDL_RenderPresent(renderer);
     }
 
     // Clean up
+    for (int i = 0; i < numBullets; i++) {
+        free(bullets[i]);
+    }
+    free(bullets);
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyTexture(enemyTexture);
     SDL_DestroyRenderer(renderer);

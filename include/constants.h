@@ -3,5 +3,9 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define BULLET_WIDTH 10
+#define BULLET_HEIGHT 10
+#define PLAYER_WIDTH 50
+#define PLAYER_HEIGHT 50
 
 #endif

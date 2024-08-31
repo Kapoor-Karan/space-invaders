@@ -2,8 +2,6 @@
 #include "constants.h"
 #include <SDL2/SDL.h>
 
-#define PLAYER_WIDTH 50
-#define PLAYER_HEIGHT 50
 
 void initializePlayer(Player* player) {
     player->rect.x = (SCREEN_WIDTH - PLAYER_WIDTH) / 2;
