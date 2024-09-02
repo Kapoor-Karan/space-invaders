@@ -1,8 +1,8 @@
 #include <raylib.h>
 
 int main() {
-    int windowHeight = 800;
-    int windowWidth = 800;
+    int windowHeight = 750;
+    int windowWidth = 700;
     Color blueBackgroundColor = {0, 0, 255, 255};
 
     InitWindow(windowWidth, windowHeight, "Space Invaders");
