@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include "spaceship.h"
 
 int main() {
     int windowHeight = 750;
@@ -8,10 +9,15 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Space Invaders");
     SetTargetFPS(60);
 
+    struct spaceship* s;
+    s = constructorFunction();
+
     while(WindowShouldClose() == false) {
         BeginDrawing();
-        EndDrawing();
         ClearBackground(blueBackgroundColor);
+        Draw(s);
+        
+        EndDrawing();
     }
 
     CloseWindow();

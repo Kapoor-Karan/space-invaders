@@ -14,7 +14,7 @@ void destructFunction(struct spaceship s)
     UnloadTexture(s.image);
 }
 
-void Draw(struct spaceship s)
+void Draw(struct spaceship* s)
 {
-    DrawTextureV(s.image, s.position, WHITE);
+    DrawTextureV(s->image, s->position, WHITE);
 }

@@ -7,9 +7,9 @@ struct spaceship
     Vector2 position;
 };
 
-spaceship* constructorFunction();
-void destructorFunction(spaceship s);
-void Draw(spaceship s);
-void moveLeft(spaceship s);
-void moveRight(spaceship s);
-void fireLaser(spaceship s);
+struct spaceship* constructorFunction();
+void destructorFunction(struct spaceship s);
+void Draw(struct spaceship* s);
+void moveLeft(struct spaceship* s);
+void moveRight(struct spaceship* s);
+void fireLaser(struct spaceship* s);
