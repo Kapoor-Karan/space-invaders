@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib.h>
+#include "laser.h"
 
 struct spaceship {
     Texture2D image;

@@ -17,10 +17,11 @@ int main() {
 
     g->s = constructorFunction();  
 
+    Vector2 pos = {100,100};
+
     while (WindowShouldClose() == false) {
 
         HandleInput(g);
-        
         BeginDrawing();
         ClearBackground(whiteBackgroundColor);
         DrawGame(g);
