@@ -6,7 +6,7 @@ struct spaceship* constructorFunction()
     struct spaceship* s = (struct spaceship*) malloc(sizeof(Texture2D) + sizeof(Vector2));
     s->image = LoadTexture("../assets/player.png");
     s->position.x = (GetScreenWidth() - s->image.width)/2;
-    s->position.x = (GetScreenHeight() - s->image.height)/2;
+    s->position.y = (GetScreenHeight() - s->image.height);
 }
 
 void destructFunction(struct spaceship s)
