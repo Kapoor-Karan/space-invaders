@@ -1,6 +1,7 @@
 #include "laser.h"
 #include <stdlib.h>
 
+// Laser constructor function
 struct Laser *laserConstructor(Vector2 position, int speed)
 {
     struct Laser *l = (struct Laser*) (malloc(sizeof(struct Laser)));
@@ -10,6 +11,7 @@ struct Laser *laserConstructor(Vector2 position, int speed)
     return l;
 }
 
+// Method to update laser's speed and it's active status
 void updateLaser(struct Laser *l)
 {
     l->position.y += l->speed;
@@ -20,6 +22,7 @@ void updateLaser(struct Laser *l)
     }
 }
 
+// Method to draw laser on screen
 void DrawLaser(struct Laser *l)
 {
     Color color = {243,216,63,255};

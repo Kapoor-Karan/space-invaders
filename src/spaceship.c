@@ -1,6 +1,7 @@
 #include "spaceship.h"
 #include <stdlib.h>
 
+// spaceship constructor function
 struct spaceship* constructorFunction()
 {
     struct spaceship* s = (struct spaceship*) malloc(sizeof(struct spaceship));  // Allocate memory for the struct itself
@@ -12,6 +13,7 @@ struct spaceship* constructorFunction()
     return s;
 }
 
+// spaceship destructor function
 void destructFunction(struct spaceship* s)
 {
     if (s != NULL) {
@@ -20,11 +22,13 @@ void destructFunction(struct spaceship* s)
     }
 }
 
+// Method to draw spaceship on screen
 void Draw(struct spaceship* s)
 {
     DrawTextureV(s->image, s->position, WHITE);
 }
 
+// Method to move the spaceship to left
 void moveLeft(struct spaceship* s)
 {
     s->position.x -= 7;
@@ -34,6 +38,7 @@ void moveLeft(struct spaceship* s)
     }
 }
 
+// Method to move the spaceship to right
 void moveRight(struct spaceship* s)
 {
     s->position.x += 7;

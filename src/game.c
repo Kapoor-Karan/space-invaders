@@ -1,6 +1,7 @@
 #include "game.h"
 #include <stdlib.h>
 
+// Game constructor function
 struct Game *gameConstructor()
 {
     struct Game *g = (struct Game *)malloc(sizeof(struct Game));
@@ -10,6 +11,7 @@ struct Game *gameConstructor()
     return g;
 }
 
+// Function to handle user inputs
 void HandleInput(struct Game *g)
 {
     if (IsKeyDown(KEY_LEFT)) {
@@ -19,11 +21,13 @@ void HandleInput(struct Game *g)
     }
 }
 
+// Drawing Game on screen
 void DrawGame(struct Game *g)
 {
     Draw(g->s);
 }
 
+// Game destructor functiom
 void gameDestructor(struct Game* g) {
     if (g != NULL) {
         destructFunction(g->s);  
