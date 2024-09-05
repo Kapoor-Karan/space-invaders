@@ -18,6 +18,8 @@ void HandleInput(struct Game *g)
         moveLeft(g->s);
     } else if (IsKeyDown(KEY_RIGHT)) {
         moveRight(g->s);
+    } else if (IsKeyDown(KEY_SPACE)) {
+        fireLaser(g->s);
     }
 }
 
@@ -25,6 +27,10 @@ void HandleInput(struct Game *g)
 void DrawGame(struct Game *g)
 {
     Draw(g->s);
+
+    for (int i = 0; i < g->s->laserCount; i++) {
+        DrawLaser(&g->s->lasers[i]);  // Draw each laser
+    }
 }
 
 // Game destructor functiom
@@ -32,5 +38,11 @@ void gameDestructor(struct Game* g) {
     if (g != NULL) {
         destructFunction(g->s);  
         free(g);  
+    }
+}
+
+void UpdateGame(struct Game* g) {
+    for (int i = 0; i < g->s->laserCount; i++) {
+        updateLaser(&g->s->lasers[i]);  // Draw each laser
     }
 }

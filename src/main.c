@@ -22,6 +22,7 @@ int main() {
     while (WindowShouldClose() == false) {
 
         HandleInput(g);
+        UpdateGame(g);
         BeginDrawing();
         ClearBackground(whiteBackgroundColor);
         DrawGame(g);

@@ -6,7 +6,11 @@
 struct spaceship {
     Texture2D image;
     Vector2 position;
+    struct Laser* lasers;    // Dynamic array of lasers
+    int laserCapacity;
+    int laserCount;
 };
+
 
 // spaceship methods
 struct spaceship* constructorFunction();
