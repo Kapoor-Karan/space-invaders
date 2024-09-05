@@ -1,7 +1,6 @@
 #include <raylib.h>
 #include "game.h"
 #include <stdlib.h>  
-#include "alien.h"
 
 // main function
 int main() {
@@ -18,8 +17,6 @@ int main() {
     }
 
     g->s = constructorFunction();  
-    Vector2 pos = {100,100};
-    struct Alien *a = alienConstructor(pos);
     // Game Loop
     while (WindowShouldClose() == false) {
 
@@ -28,7 +25,6 @@ int main() {
         BeginDrawing();
         ClearBackground(whiteBackgroundColor);
         DrawGame(g);
-        DrawAlien(a);
         EndDrawing();
     }
 

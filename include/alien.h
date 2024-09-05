@@ -2,10 +2,11 @@
 #include <raylib.h>
 
 struct Alien {
-    Texture2D image;
     Vector2 position;
+    Texture2D image;  
 };
 
-struct Alien* alienConstructor(Vector2 position);
-void Update(struct Alien* a);
+// Function declarations
+struct Alien *alienConstructor(Vector2 position);
 void DrawAlien(struct Alien* a);
+void UnloadAlien(struct Alien* a);

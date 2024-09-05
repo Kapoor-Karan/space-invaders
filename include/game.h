@@ -1,9 +1,12 @@
 #pragma once
 #include "spaceship.h"
+#include "alien.h"
 
 // Game structure defined
 struct Game {
     struct spaceship* s;
+    struct Alien *aliens;
+    int alienCount;
 };
 
 // Game methods 
@@ -13,3 +16,4 @@ void gameDestructor(struct Game* g);
 void DrawGame(struct Game* g);
 void UpdateGame(struct Game* g);
 void DeleteInactiveLasers(struct Game* g);
+struct Alien* CreateAliens();
