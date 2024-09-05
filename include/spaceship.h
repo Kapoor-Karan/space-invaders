@@ -9,6 +9,8 @@ struct spaceship {
     struct Laser* lasers;    // Dynamic array of lasers
     int laserCapacity;
     int laserCount;
+    float lastFireTime;
+    int framesSinceLastFire;
 };
 
 

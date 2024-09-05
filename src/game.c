@@ -46,3 +46,16 @@ void UpdateGame(struct Game* g) {
         updateLaser(&g->s->lasers[i]);  // Draw each laser
     }
 }
+
+void DeleteInactiveLasers(struct Game* g) {
+    int newLaserCount = 0;  // Count of active lasers
+    for (int i = 0; i < g->s->laserCount; i++) {
+        if (g->s->lasers[i].active) {
+            // Keep active lasers by shifting them to the front
+            g->s->lasers[newLaserCount] = g->s->lasers[i];
+            newLaserCount++;
+        }
+    }
+    // Update the count of lasers after removing inactive ones
+    g->s->laserCount = newLaserCount;
+}

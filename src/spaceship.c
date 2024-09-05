@@ -11,6 +11,7 @@ struct spaceship* constructorFunction()
         s->position.y = (GetScreenHeight() - s->image.height);
         s->laserCapacity = 10;  // Initial capacity for 10 lasers
         s->laserCount = 0;
+        s->lastFireTime = 0.0f;
         s->lasers = (struct Laser*)malloc(s->laserCapacity * sizeof(struct Laser));
     }
     return s;
@@ -52,16 +53,21 @@ void moveRight(struct spaceship* s)
     }
 }
 
-void fireLaser(struct spaceship *s)
-{
-    if (s->laserCount >= s->laserCapacity) {
-        s->laserCapacity *= 2;
-        s->lasers = (struct Laser*)realloc(s->lasers, s->laserCapacity * sizeof(struct Laser));
-    }
+void fireLaser(struct spaceship* s) {
+    if (GetTime() - s->lastFireTime >= 0.35) {
+        // Check if we need to expand the laser array
+        if (s->laserCount >= s->laserCapacity) {
+            s->laserCapacity *= 2;
+            s->lasers = (struct Laser*)realloc(s->lasers, s->laserCapacity * sizeof(struct Laser));
+        }
 
-    // Add the new laser
-    s->lasers[s->laserCount].position.x = s->position.x + s->image.width / 2 - 2;
-    s->lasers[s->laserCount].position.y = s->position.y;
-    s->lasers[s->laserCount].speed = -6.0f;
-    s->laserCount++;
+        // Add the new laser
+        s->lasers[s->laserCount].position.x = s->position.x + s->image.width / 2 - 2;
+        s->lasers[s->laserCount].position.y = s->position.y;
+        s->lasers[s->laserCount].speed = -6.0f;
+        s->laserCount++;
+
+        s->lastFireTime = GetTime();
+    }
 }
+
