@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories(include)
 
-add_executable(MyRaylibGame src/main.c src/spaceship.c src/game.c src/laser.c)
+add_executable(MyRaylibGame src/main.c src/spaceship.c src/game.c src/laser.c src/alien.c)
 
 target_link_libraries(MyRaylibGame raylib)
