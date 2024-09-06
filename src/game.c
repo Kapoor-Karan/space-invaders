@@ -5,48 +5,22 @@
 // Game constructor function
 struct Game *gameConstructor()
 {
-    struct Game *g = (struct Game *)malloc(sizeof(struct Game));
-    if (g == NULL) {
-        return NULL;  // Return NULL if allocation fails
-    }
-
-    g->s = constructorFunction();
-    if (g->s == NULL) {
-        free(g);
-        return NULL;  // Return NULL if spaceship constructor fails
-    }
-    g->AlienImage = LoadTexture("../assets/enemy.png");
-    if (g->AlienImage.id == 0) {
-        // Error loading texture
-        printf("Failed to load alien texture\n");
-    }
-    g->alienCount = 5 * 10;
-    g->aliensDirection = 1;
-    g->alienLaserCapacity = 10;
-    g->alienLasers = (struct Laser*)malloc(g->alienLaserCapacity * sizeof(struct Laser));
-    g->alienLaserCount = 0;
-    g->timeLastAlienFired = 0.0;
-    g->alienLaserShootInterval = 0.5;
-    g->aliens = CreateAliens(g->AlienImage);
-    if (g->aliens == NULL) {
-        destructFunction(g->s);  // Clean up if aliens creation fails
-        free(g);
-        return NULL;
-    }
-
-    return g;    
+    struct Game* g = InitGame();
+    return g; 
 }
 
 
 // Function to handle user inputs
 void HandleInput(struct Game *g)
 {
-    if (IsKeyDown(KEY_LEFT)) {
-        moveLeft(g->s);
-    } else if (IsKeyDown(KEY_RIGHT)) {
-        moveRight(g->s);
-    } else if (IsKeyDown(KEY_SPACE)) {
-        fireLaser(g->s);
+    if(g->run) {
+        if (IsKeyDown(KEY_LEFT)) {
+            moveLeft(g->s);
+        } else if (IsKeyDown(KEY_RIGHT)) {
+            moveRight(g->s);
+        } else if (IsKeyDown(KEY_SPACE)) {
+            fireLaser(g->s);
+        }
     }
 }
 
@@ -97,22 +71,27 @@ void gameDestructor(struct Game* g) {
 
 
 void UpdateGame(struct Game* g) {
-    // Update spaceship lasers
-    for (int i = 0; i < g->s->laserCount; i++) {
-        updateLaser(&g->s->lasers[i]);
-    }
 
-    // Move aliens and handle alien laser shooting
-    MoveAliens(g);
-    AlienShootLaser(g);
+    if(g->run){
+        // Update spaceship lasers
+        for (int i = 0; i < g->s->laserCount; i++) {
+            updateLaser(&g->s->lasers[i]);
+        }
 
-    // Update alien lasers
-    for (int i = 0; i < g->alienLaserCount; i++) {
-        updateLaser(&g->alienLasers[i]);
+        // Move aliens and handle alien laser shooting
+        MoveAliens(g);
+        AlienShootLaser(g);
+
+        // Update alien lasers
+        for (int i = 0; i < g->alienLaserCount; i++) {
+            updateLaser(&g->alienLasers[i]);
+        }
+        CheckCollisions(g);
+        // Remove inactive spaceship and alien lasers
+        DeleteInactiveLasers(g);   // Assuming this function now handles both spaceship and alien lasers
+    } else if(IsKeyDown(KEY_ENTER)) {
+        // Reset();
     }
-    CheckCollisions(g);
-    // Remove inactive spaceship and alien lasers
-    DeleteInactiveLasers(g);   // Assuming this function now handles both spaceship and alien lasers
 }
 
 
@@ -244,8 +223,13 @@ void CheckCollisions(struct Game* g) {
         struct Laser* laser = &g->alienLasers[i];
         // Check collision with spaceship
         if (CheckCollisionRecs(getRectLaser(laser), getRectSpaceship(g->s))) {
-            printf("collision detected");
+            g->lives--;
             laser->active = false;
+            printf("%d\n", g->lives);
+            if(g->lives <= 0) {
+                printf("lives less than or eqaul to 0");
+                GameOver(g); 
+            }
         }
     }
 
@@ -254,7 +238,51 @@ void CheckCollisions(struct Game* g) {
         struct Alien* alien = &g->aliens[i];
         if (CheckCollisionRecs(getRectAlien(alien), getRectSpaceship(g->s))) {
 
-            printf("Game Over");
+            GameOver(g);
         }
     }
+}
+
+void GameOver(struct Game* g) {
+    g->run = false;  
+}
+
+struct Game* InitGame()
+{
+    struct Game *g = (struct Game *)malloc(sizeof(struct Game));
+    if (g == NULL) {
+        return NULL;  // Return NULL if allocation fails
+    }
+
+    g->s = constructorFunction();
+    if (g->s == NULL) {
+        free(g);
+        return NULL;  // Return NULL if spaceship constructor fails
+    }
+    g->AlienImage = LoadTexture("../assets/enemy.png");
+    if (g->AlienImage.id == 0) {
+        // Error loading texture
+        printf("Failed to load alien texture\n");
+    }
+    g->run = true;
+    g->alienCount = 5 * 10;
+    g->aliensDirection = 1;
+    g->lives = 3;
+    g->alienLaserCapacity = 10;
+    g->alienLasers = (struct Laser*)malloc(g->alienLaserCapacity * sizeof(struct Laser));
+    g->alienLaserCount = 0;
+    g->timeLastAlienFired = 0.0;
+    g->alienLaserShootInterval = 0.5;
+    g->aliens = CreateAliens(g->AlienImage);
+    if (g->aliens == NULL) {
+        destructFunction(g->s);  // Clean up if aliens creation fails
+        free(g);
+        return NULL;
+    }
+
+    return g;
+}
+
+void Reset() {
+    
 }

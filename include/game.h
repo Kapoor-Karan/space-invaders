@@ -1,6 +1,7 @@
 #pragma once
 #include "spaceship.h"
 #include "alien.h"
+#include <stdbool.h>
 
 // Game structure defined
 struct Game {
@@ -14,6 +15,8 @@ struct Game {
     int alienLaserCapacity;
     double timeLastAlienFired; 
     double alienLaserShootInterval;  
+    int lives;
+    bool run;
 };
 
 // Game methods 
@@ -28,3 +31,6 @@ void MoveAliens(struct Game* g);
 void MoveDownAliens(struct Game* g, int distance);
 void AlienShootLaser(struct Game* g);
 void CheckCollisions(struct Game* g);
+void GameOver(struct Game* g);
+struct Game* InitGame();
+void Reset();
