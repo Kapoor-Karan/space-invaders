@@ -231,9 +231,8 @@ void CheckCollisions(struct Game* g) {
         if (CheckCollisionRecs(getRectLaser(laser), getRectSpaceship(g->s))) {
             g->lives--;
             laser->active = false;
-            printf("%d\n", g->lives);
-            if(g->lives <= 0) {
-                printf("lives less than or eqaul to 0");
+            printf("Lives Left : %d\n", g->lives);
+            if(g->lives == 0) {
                 GameOver(g); 
             }
         }
@@ -250,7 +249,9 @@ void CheckCollisions(struct Game* g) {
 }
 
 void GameOver(struct Game* g) {
-    g->run = false;  
+    g->run = false;
+    printf("\n Your score was : %d ", g->score);
+    printf("\n");
 }
 
 struct Game* InitGame()
