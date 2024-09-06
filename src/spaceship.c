@@ -78,7 +78,6 @@ void fireLaser(struct spaceship* s) {
 
             // Check if realloc failed
             if (s->lasers == NULL) {
-                printf("Memory allocation for lasers failed.\n");
                 return;  // Don't proceed if realloc fails
             }
         }
