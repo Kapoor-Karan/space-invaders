@@ -1,93 +1,93 @@
+# 🛸 Space Invaders Game (C Version)
 
-Space Invaders Game (C Version)
-This is a Space Invaders game developed in C using the raylib library for rendering and game management. The player controls a spaceship and shoots at waves of aliens. Once all aliens are destroyed, they respawn, and the game continues. The goal is to achieve the highest possible score before losing all lives.
+![Banner Image](./assets/bannerImage.png)
 
-Table of Contents
-Features
-Installation
-Controls
-Project Structure
-Gameplay Mechanics
-Credits
-Features
-Player-controlled spaceship that moves left and right, shoots lasers.
-Waves of aliens that move across the screen and shoot back.
-Obstacles that block lasers and get destroyed when hit.
-Mystery ship that appears occasionally, giving bonus points when destroyed.
-Score and Highscore tracking.
-Endless waves: When all aliens are destroyed, they respawn, and the game continues.
-Sound effects for explosions and shooting.
-Game over condition when player loses all lives.
-Installation
-Prerequisites
-Make sure you have the following installed on your system:
+A classic Space Invaders game implemented in C with modular design and continuous gameplay.
 
-C compiler (like GCC or Clang)
-Make (optional, if using the provided Makefile)
-raylib: The game uses the raylib library for rendering. You can install it via:
-On Linux (Ubuntu/Debian):
-bash
-Copy code
-sudo apt install libraylib-dev
-On Windows: You can download precompiled raylib binaries from the official raylib website and link it in your project.
-Installation Steps
-Clone the repository:
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [File Structure](#file-structure)
+- [Installation](#installation)
+- [Controls](#controls)
+- [Future Scope](#future-scope)
+- [Credits](#credits)
 
-bash
-Copy code
-git clone https://github.com/yourusername/space-invaders-c.git
-cd space-invaders-c
-Install raylib: Follow the instructions from raylib.
+## Overview
 
-Compile the project: If you are using the Makefile provided:
+This project implements a **🎮 Space Invaders** game using C, aiming to recreate the classic arcade experience. The game features player-controlled spaceships, alien waves, and continuous gameplay with a scoring system. It demonstrates modular design with separate modules for handling different game elements such as the spaceship, aliens, and lasers.
 
-bash
-Copy code
-make
-Otherwise, you can manually compile using:
+## Features
 
-bash
-Copy code
-gcc -o space_invaders main.c game.c spaceship.c laser.c alien.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
-Run the game:
+- **Player-controlled spaceship**: Move left and right at the bottom of the screen and shoot lasers.
+- **Alien waves**: Aliens move across the screen and shoot back at the player.
+- **Endless waves**: Aliens respawn after being cleared, ensuring continuous gameplay.
+- **Game Over condition**: The game ends when all player lives are lost.
 
-bash
-Copy code
-./space_invaders
-Controls
-Move Left: Left Arrow
-Move Right: Right Arrow
-Shoot: Space
-Project Structure
-makefile
-Copy code
-├── assets/              # Game assets (images, sounds)
-│   ├── player.png       # Spaceship sprite
-│   ├── enemy.png        # Alien sprite
-│   ├── explosion.wav    # Explosion sound effect
-│   └── ...              # Other assets
-├── src/                 # Source files
-│   ├── main.c           # Entry point of the game
-│   ├── game.c           # Game logic
-│   ├── spaceship.c      # Spaceship logic
-│   ├── alien.c          # Alien logic
-│   ├── laser.c          # Laser logic
-│   └── ...              # Other source files
-├── include/             # Header files
-│   ├── game.h           # Header file for game logic
-│   ├── spaceship.h      # Header file for spaceship logic
-│   ├── alien.h          # Header file for alien logic
-│   └── ...              # Other headers
-├── Makefile             # For compiling the project (optional)
-└── README.md            # This README file
-Gameplay Mechanics
-Spaceship Movement: The player can move the spaceship left and right using arrow keys and shoot lasers to destroy aliens.
-Alien Waves: Aliens move horizontally across the screen, switching directions when they reach the edges. If they move down enough or shoot the player, the game becomes more difficult.
-Obstacles: Obstacles can block both player and alien lasers. They degrade over time as they take damage.
-Respawning Aliens: After all aliens are destroyed, they respawn at the top of the screen.
-Scoring: Points are awarded based on the type of alien destroyed and bonus points for the mystery ship.
-Lives: The player starts with multiple lives and loses one if hit by an alien laser. The game ends when all lives are lost.
-Credits
-raylib: For providing an easy-to-use game development framework.
-Game Development: Developed by [Your Name].
-Inspiration: Classic Space Invaders arcade game.
+## File Structure
+
+- `assets/`: Game assets (images)
+  - `enemy.png`: Alien sprite
+  - `player.png`: Spaceship sprite
+- `src/`: Source files
+  - `main.c`: Entry point of the game
+  - `game.c`: Game logic
+  - `spaceship.c`: Spaceship logic
+  - `alien.c`: Alien logic
+  - `laser.c`: Laser logic
+- `include/`: Header files
+  - `game.h`: Game logic header
+  - `spaceship.h`: Spaceship logic header
+  - `alien.h`: Alien logic header
+  - `laser.h`: Laser logic header
+- `CMakeLists.txt`: CMake configuration file for building the project
+- `README.md`: This README file
+
+## Installation
+
+### Prerequisites
+
+- **GCC Compiler**: Ensure you have GCC installed on your system.
+- **CMake**: Required for building the project.
+- **raylib**: Game development library used for rendering.
+
+### Cloning the Repository
+
+1. Clone the repository from GitHub:
+    ```
+    git clone https://github.com/yourusername/space-invaders-c.git
+    ```
+2. Navigate into the project directory:
+    ```
+    cd space-invaders-c
+    ```
+
+### Build the Project
+
+1. Create a build directory and compile the project using CMake:
+    ```
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ```
+
+## Controls
+
+- **Move Left**: Left Arrow Key
+- **Move Right**: Right Arrow Key
+- **Shoot**: Space Bar
+
+## Future Scope
+
+- **Levels**: Introduce levels with increasing difficulty.
+- **Power-ups**: Implement power-ups for the player (e.g., double lasers, shields).
+- **Alien Types**: Add more diverse alien types with different behaviors.
+- **Multiplayer**: Add a two-player mode with simultaneous play.
+- **Improved Graphics**: Enhance the visual quality of the game with more detailed sprites and animations.
+
+## Credits
+
+- **raylib**: For providing an easy-to-use game development framework.
+- **Game Development**: Developed by Karan Kapoor.
+- **Inspiration**: Based on the classic arcade game, Space Invaders.
