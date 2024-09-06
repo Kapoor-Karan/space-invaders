@@ -16,3 +16,8 @@ void DrawAlien(struct Alien* a) {
 void UpdateAlien(struct Alien* a, int direction) {
     a->position.x += direction;
 }
+
+Rectangle getRectAlien(struct Alien* a) {
+    Rectangle temp = {a->position.x, a->position.y, a->image.width, a->image.height};
+    return temp;
+}

@@ -29,3 +29,8 @@ void DrawLaser(struct Laser *l)
     if(l->active)
         DrawRectangle(l->position.x, l->position.y, 4, 15, color);
 }
+
+Rectangle getRectLaser(struct Laser* l) {
+    Rectangle temp = {l->position.x, l->position.y, 4, 15};
+    return temp;
+}

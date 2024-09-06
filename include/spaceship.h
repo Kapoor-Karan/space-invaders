@@ -20,3 +20,4 @@ void Draw(struct spaceship* s);
 void moveLeft(struct spaceship* s);
 void moveRight(struct spaceship* s);
 void fireLaser(struct spaceship* s);  
+Rectangle getRectSpaceship(struct spaceship* s);

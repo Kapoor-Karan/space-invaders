@@ -27,3 +27,4 @@ struct Alien* CreateAliens(Texture2D texture);
 void MoveAliens(struct Game* g);
 void MoveDownAliens(struct Game* g, int distance);
 void AlienShootLaser(struct Game* g);
+void CheckCollisions(struct Game* g);

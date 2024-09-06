@@ -104,4 +104,8 @@ void fireLaser(struct spaceship* s) {
     }
 }
 
+Rectangle getRectSpaceship(struct spaceship* s) {
+    Rectangle temp = {s->position.x, s->position.y, s->image.width, s->image.height};
+    return temp;
+}
 

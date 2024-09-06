@@ -110,24 +110,38 @@ void UpdateGame(struct Game* g) {
     for (int i = 0; i < g->alienLaserCount; i++) {
         updateLaser(&g->alienLasers[i]);
     }
-
+    CheckCollisions(g);
     // Remove inactive spaceship and alien lasers
     DeleteInactiveLasers(g);   // Assuming this function now handles both spaceship and alien lasers
 }
 
 
 void DeleteInactiveLasers(struct Game* g) {
-    int newLaserCount = 0;  // Count of active lasers
+    // Handle spaceship lasers
+    int newLaserCount = 0;  // Count of active spaceship lasers
     for (int i = 0; i < g->s->laserCount; i++) {
         if (g->s->lasers[i].active) {
-            // Keep active lasers by shifting them to the front
+            // Keep active spaceship lasers by shifting them to the front
             g->s->lasers[newLaserCount] = g->s->lasers[i];
             newLaserCount++;
         }
     }
-    // Update the count of lasers after removing inactive ones
+    // Update the count of spaceship lasers after removing inactive ones
     g->s->laserCount = newLaserCount;
+
+    // Handle alien lasers
+    int newAlienLaserCount = 0;  // Count of active alien lasers
+    for (int i = 0; i < g->alienLaserCount; i++) {
+        if (g->alienLasers[i].active) {
+            // Keep active alien lasers by shifting them to the front
+            g->alienLasers[newAlienLaserCount] = g->alienLasers[i];
+            newAlienLaserCount++;
+        }
+    }
+    // Update the count of alien lasers after removing inactive ones
+    g->alienLaserCount = newAlienLaserCount;
 }
+
 
 
 struct Alien* CreateAliens(Texture2D texture) {
@@ -200,4 +214,47 @@ void AlienShootLaser(struct Game *g)
         }
         g->timeLastAlienFired = currentTime;
     }   
+}
+
+
+void CheckCollisions(struct Game* g) {
+    // Checking for spaceship lasers
+    for (int i = 0; i < g->s->laserCount; i++) {
+        struct Laser* laser = &g->s->lasers[i];
+
+        // Check collision with aliens
+        for (int j = 0; j < g->alienCount; j++) {
+            struct Alien* alien = &g->aliens[j];
+            Rectangle r1 = {alien->position.x, alien->position.y, alien->image.width, alien->image.height};
+            Rectangle r2 = {laser->position.x, laser->position.y, 4, 15};
+            if (CheckCollisionRecs(r1, r2)) {
+
+                // Remove the alien
+                for (int k = j; k < g->alienCount - 1; k++) {
+                    g->aliens[k] = g->aliens[k + 1];  // Shift remaining aliens
+                }
+                g->alienCount--;  // Decrease the alien count
+
+                laser->active = false;  // Mark laser as inactive
+                break;  // Exit the loop since the alien is removed
+            }
+        }
+    }
+    for (int i = 0; i < g->alienLaserCount; i++) {
+        struct Laser* laser = &g->alienLasers[i];
+        // Check collision with spaceship
+        if (CheckCollisionRecs(getRectLaser(laser), getRectSpaceship(g->s))) {
+            printf("collision detected");
+            laser->active = false;
+        }
+    }
+
+    // spaceship and alien collision
+    for (int i = 0; i < g->alienCount; i++) {
+        struct Alien* alien = &g->aliens[i];
+        if (CheckCollisionRecs(getRectAlien(alien), getRectSpaceship(g->s))) {
+
+            printf("Game Over");
+        }
+    }
 }

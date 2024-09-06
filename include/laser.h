@@ -14,3 +14,4 @@ struct Laser
 struct Laser* laserConstructor(Vector2 position, int speed);
 void updateLaser(struct Laser* l);
 void DrawLaser(struct Laser* l);
+Rectangle getRectLaser(struct Laser* l);
