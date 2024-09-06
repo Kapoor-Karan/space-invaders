@@ -89,9 +89,11 @@ void UpdateGame(struct Game* g) {
         CheckCollisions(g);
         // Remove inactive spaceship and alien lasers
         DeleteInactiveLasers(g);   // Assuming this function now handles both spaceship and alien lasers
-    } else if(IsKeyDown(KEY_ENTER)) {
-        // Reset();
-    }
+    } 
+    // else if(IsKeyDown(KEY_ENTER)) {
+        // Reset(g);
+        // g = InitGame();
+    // }
 }
 
 
@@ -213,7 +215,7 @@ void CheckCollisions(struct Game* g) {
                     g->aliens[k] = g->aliens[k + 1];  // Shift remaining aliens
                 }
                 g->alienCount--;  // Decrease the alien count
-
+                g->score += 1;
                 laser->active = false;  // Mark laser as inactive
                 break;  // Exit the loop since the alien is removed
             }
@@ -264,6 +266,7 @@ struct Game* InitGame()
         // Error loading texture
         printf("Failed to load alien texture\n");
     }
+    g->score = 0;
     g->run = true;
     g->alienCount = 5 * 10;
     g->aliensDirection = 1;
@@ -283,6 +286,8 @@ struct Game* InitGame()
     return g;
 }
 
-void Reset() {
-    
-}
+// void Reset(struct Game* g) {
+//     ResetSpaceship(g->s);
+//     g->alienLaserCount = 0;
+//     g->alienCount = 0;
+// }

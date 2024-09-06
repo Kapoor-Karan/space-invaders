@@ -17,6 +17,7 @@ struct Game {
     double alienLaserShootInterval;  
     int lives;
     bool run;
+    int score;
 };
 
 // Game methods 
@@ -33,4 +34,4 @@ void AlienShootLaser(struct Game* g);
 void CheckCollisions(struct Game* g);
 void GameOver(struct Game* g);
 struct Game* InitGame();
-void Reset();
+void Reset(struct Game* g);

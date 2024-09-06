@@ -109,3 +109,8 @@ Rectangle getRectSpaceship(struct spaceship* s) {
     return temp;
 }
 
+// void ResetSpaceship(struct spaceship* s) {
+//     s->position.x = (GetScreenWidth() - s->image.width) / 2;
+//     s->position.y = (GetScreenHeight() - s->image.height);
+//     s->laserCount = 0;
+// }
