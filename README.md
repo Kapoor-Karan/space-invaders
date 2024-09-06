@@ -55,11 +55,11 @@ This project implements a **🎮 Space Invaders** game using C, aiming to recrea
 
 1. Clone the repository from GitHub:
     ```
-    git clone https://github.com/yourusername/space-invaders-c.git
+    git clone https://github.com/Kapoor-Karan/space-invaders.git
     ```
 2. Navigate into the project directory:
     ```
-    cd space-invaders-c
+    cd space-invaders
     ```
 
 ### Build the Project
