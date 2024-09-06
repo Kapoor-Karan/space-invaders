@@ -88,16 +88,12 @@ void UpdateGame(struct Game* g) {
         }
         CheckCollisions(g);
         // Remove inactive spaceship and alien lasers
-        DeleteInactiveLasers(g);   // Assuming this function now handles both spaceship and alien lasers
+        DeleteInactiveLasers(g); 
         if (g->alienCount == 0) {
             // Respawn aliens
             ResetAliens(g);
         }
     } 
-    // else if(IsKeyDown(KEY_ENTER)) {
-        // Reset(g);
-        // g = InitGame();
-    // }
 }
 
 
@@ -290,12 +286,6 @@ struct Game* InitGame()
 
     return g;
 }
-
-// void Reset(struct Game* g) {
-//     ResetSpaceship(g->s);
-//     g->alienLaserCount = 0;
-//     g->alienCount = 0;
-// }
 
 void ResetAliens(struct Game* g)
 {

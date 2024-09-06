@@ -34,5 +34,4 @@ void AlienShootLaser(struct Game* g);
 void CheckCollisions(struct Game* g);
 void GameOver(struct Game* g);
 struct Game* InitGame();
-void Reset(struct Game* g);
 void ResetAliens(struct Game* g);

@@ -21,4 +21,3 @@ void moveLeft(struct spaceship* s);
 void moveRight(struct spaceship* s);
 void fireLaser(struct spaceship* s);  
 Rectangle getRectSpaceship(struct spaceship* s);
-// void ResetSpaceship(struct spaceship* s);

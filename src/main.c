@@ -7,8 +7,6 @@ int main() {
     int windowHeight = 750; // game window height
     int windowWidth = 700;  // game window width
     Color whiteBackgroundColor = {0, 0, 0, 255}; // game window background colour
-    Color yellow = {243, 216, 63, 255};
-    // Font font = LoadFontEx("../Font/monogram.ttf", 64, 0, 0);
 
     InitWindow(windowWidth, windowHeight, "Space Invaders"); // Initialising the windows
     SetTargetFPS(60);
@@ -27,12 +25,10 @@ int main() {
         BeginDrawing();
         ClearBackground(whiteBackgroundColor);
         Vector2 pos = {50,15};
-        // DrawTextEx(font, "SCORE", pos, 34, 2, yellow);
         DrawGame(g);
         EndDrawing();
     }
-
-    destructFunction(g->s);  
+    gameDestructor(g);
     free(g);  
     CloseWindow();
 

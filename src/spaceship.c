@@ -1,8 +1,6 @@
 #include "spaceship.h"
 #include <stdlib.h>
-#include <stdio.h>
 
-// spaceship constructor function
 // spaceship constructor function
 struct spaceship* constructorFunction()
 {
@@ -25,9 +23,6 @@ struct spaceship* constructorFunction()
     return s;
 }
 
-
-
-// spaceship destructor function
 // spaceship destructor function
 void destructFunction(struct spaceship* s)
 {
@@ -108,9 +103,3 @@ Rectangle getRectSpaceship(struct spaceship* s) {
     Rectangle temp = {s->position.x, s->position.y, s->image.width, s->image.height};
     return temp;
 }
-
-// void ResetSpaceship(struct spaceship* s) {
-//     s->position.x = (GetScreenWidth() - s->image.width) / 2;
-//     s->position.y = (GetScreenHeight() - s->image.height);
-//     s->laserCount = 0;
-// }
