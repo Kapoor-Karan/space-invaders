@@ -10,3 +10,4 @@ struct Alien {
 struct Alien *alienConstructor(Vector2 position);
 void DrawAlien(struct Alien* a);
 void UnloadAlien(struct Alien* a);
+void UpdateAlien(struct Alien* a, int direction);

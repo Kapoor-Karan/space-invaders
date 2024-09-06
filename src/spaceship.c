@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 // spaceship constructor function
+// spaceship constructor function
 struct spaceship* constructorFunction()
 {
     struct spaceship* s = (struct spaceship*) malloc(sizeof(struct spaceship));  // Allocate memory for the struct itself
@@ -13,19 +14,35 @@ struct spaceship* constructorFunction()
         s->laserCount = 0;
         s->lastFireTime = 0.0f;
         s->lasers = (struct Laser*)malloc(s->laserCapacity * sizeof(struct Laser));
+
+        // Check if laser array memory allocation failed
+        if (s->lasers == NULL) {
+            free(s);  // Free spaceship if laser allocation failed
+            return NULL;
+        }
     }
     return s;
 }
 
 
+
+// spaceship destructor function
 // spaceship destructor function
 void destructFunction(struct spaceship* s)
 {
     if (s != NULL) {
         UnloadTexture(s->image);
+
+        // Free the laser array if it exists
+        if (s->lasers != NULL) {
+            free(s->lasers);
+        }
+
+        // Free the spaceship itself
         free(s);  
     }
 }
+
 
 // Method to draw spaceship on screen
 void Draw(struct spaceship* s)
@@ -54,7 +71,7 @@ void moveRight(struct spaceship* s)
 }
 
 void fireLaser(struct spaceship* s) {
-    if (GetTime() - s->lastFireTime >= 0.35) {
+    // if (GetTime() - s->lastFireTime >= 0.35) {
         // Check if we need to expand the laser array
         if (s->laserCount >= s->laserCapacity) {
             s->laserCapacity *= 2;
@@ -67,7 +84,7 @@ void fireLaser(struct spaceship* s) {
         s->lasers[s->laserCount].speed = -6.0f;
         s->laserCount++;
 
-        s->lastFireTime = GetTime();
-    }
+        // s->lastFireTime = GetTime();
+    // }
 }
 

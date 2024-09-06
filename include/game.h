@@ -7,6 +7,13 @@ struct Game {
     struct spaceship* s;
     struct Alien *aliens;
     int alienCount;
+    Texture2D AlienImage;
+    int aliensDirection;
+    struct Laser *alienLasers;
+    int alienLaserCount;
+    int alienLaserCapacity;
+    double timeLastAlienFired; 
+    double alienLaserShootInterval;  
 };
 
 // Game methods 
@@ -16,4 +23,7 @@ void gameDestructor(struct Game* g);
 void DrawGame(struct Game* g);
 void UpdateGame(struct Game* g);
 void DeleteInactiveLasers(struct Game* g);
-struct Alien* CreateAliens();
+struct Alien* CreateAliens(Texture2D texture);
+void MoveAliens(struct Game* g);
+void MoveDownAliens(struct Game* g, int distance);
+void AlienShootLaser(struct Game* g);

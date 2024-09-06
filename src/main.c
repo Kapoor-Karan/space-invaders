@@ -11,7 +11,7 @@ int main() {
     InitWindow(windowWidth, windowHeight, "Space Invaders"); // Initialising the windows
     SetTargetFPS(60);
 
-    struct Game* g = (struct Game*)malloc(sizeof(struct Game));  
+    struct Game* g = gameConstructor();  
     if (g == NULL) {
         return -1;  
     }
