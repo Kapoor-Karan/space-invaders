@@ -185,7 +185,7 @@ void MoveDownAliens(struct Game *g, int distance)
 void AlienShootLaser(struct Game *g)
 {
     double currentTime = GetTime();
-        if(currentTime - g->timeLastAlienFired >= g->alienLaserShootInterval && g->alienCount > 0) {
+    if(currentTime - g->timeLastAlienFired >= g->alienLaserShootInterval && g->alienCount > 0) {
         int randomIndex = GetRandomValue(0, 49);
         struct Alien* alien = &g->aliens[randomIndex];
         struct Laser newLaser;
@@ -199,5 +199,5 @@ void AlienShootLaser(struct Game *g)
             g->alienLasers = (struct Laser*)realloc(g->alienLasers, g->alienLaserCapacity * sizeof(struct Laser));
         }
         g->timeLastAlienFired = currentTime;
-    }
+    }   
 }

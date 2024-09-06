@@ -10,7 +10,6 @@ struct spaceship {
     int laserCapacity;
     int laserCount;
     float lastFireTime;
-    int framesSinceLastFire;
 };
 
 

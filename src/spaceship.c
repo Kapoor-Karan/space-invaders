@@ -1,5 +1,6 @@
 #include "spaceship.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 // spaceship constructor function
 // spaceship constructor function
@@ -71,20 +72,36 @@ void moveRight(struct spaceship* s)
 }
 
 void fireLaser(struct spaceship* s) {
-    // if (GetTime() - s->lastFireTime >= 0.35) {
-        // Check if we need to expand the laser array
+    double currentTime = GetTime();
+    
+    // Check if enough time has passed since the last shot
+    if (currentTime - s->lastFireTime >= 0.35) {
+        // Check if laser array needs to be expanded
         if (s->laserCount >= s->laserCapacity) {
             s->laserCapacity *= 2;
             s->lasers = (struct Laser*)realloc(s->lasers, s->laserCapacity * sizeof(struct Laser));
+
+            // Check if realloc failed
+            if (s->lasers == NULL) {
+                printf("Memory allocation for lasers failed.\n");
+                return;  // Don't proceed if realloc fails
+            }
         }
 
         // Add the new laser
-        s->lasers[s->laserCount].position.x = s->position.x + s->image.width / 2 - 2;
-        s->lasers[s->laserCount].position.y = s->position.y;
-        s->lasers[s->laserCount].speed = -6.0f;
+        struct Laser newLaser;
+        newLaser.position.x = s->position.x + s->image.width / 2 - 2;
+        newLaser.position.y = s->position.y;
+        newLaser.speed = -6.0f;
+        newLaser.active = true;  // Mark the laser as active
+
+        // Assign the new laser to the array
+        s->lasers[s->laserCount] = newLaser;
         s->laserCount++;
 
-        // s->lastFireTime = GetTime();
-    // }
+        // Update last fire time
+        s->lastFireTime = currentTime;
+    }
 }
+
 
