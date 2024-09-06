@@ -89,6 +89,10 @@ void UpdateGame(struct Game* g) {
         CheckCollisions(g);
         // Remove inactive spaceship and alien lasers
         DeleteInactiveLasers(g);   // Assuming this function now handles both spaceship and alien lasers
+        if (g->alienCount == 0) {
+            // Respawn aliens
+            ResetAliens(g);
+        }
     } 
     // else if(IsKeyDown(KEY_ENTER)) {
         // Reset(g);
@@ -291,3 +295,11 @@ struct Game* InitGame()
 //     g->alienLaserCount = 0;
 //     g->alienCount = 0;
 // }
+
+void ResetAliens(struct Game* g)
+{
+    // Recreate the aliens with the same texture
+    g->alienCount = 5 * 10;  // Reset alien count
+    free(g->aliens);  // Free the previous alien memory
+    g->aliens = CreateAliens(g->AlienImage);  // Respawn aliens from the starting point
+}
